@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" media="screen">
+  <link href="{% static 'styles/style.css' %}" rel="stylesheet" media="screen">
+  <title>{% block title %}Captioner{% endblock %}</title>
+</head>
+<body>
+  <nav class="navbar navbar-nav navbar-static-top text-center" role="navigation">
+    {% if user.is_authenticated %}
+      <a class="nav-item nav-link" href="{% url 'user' user.username 'images' %}">{{ user.username }}</a>
+      <a class="nav-item nav-link" href="{% url '' %}">All Images</a>
+      <a class="nav-item nav-link" href="{% url 'user' user.username 'images' %}">My Images</a>
+      <a class="nav-item nav-link" href="{% url 'user' user.username 'captions' %}">My Captions</a>
+      <a class="nav-item nav-link" href="{% url 'Logout' %}">Logout</a>
+    {% else %}
+      <a class="nav-item nav-link" href="{% url 'Login' %}">Login</a>
+    {% endif %}
+  </nav>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer mt-5 container-fluid text-center" role="contentinfo">
+    <img src="{% static 'images/brand.jpg' %}" height="50" alt="">
+    Captioner
+  </footer>
+  <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

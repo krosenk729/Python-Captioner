@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{image.name}}{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-around">
+  <div class="card">
+    <img class="card-img-top" src="{{ image.url }}" alt="{{ image.name }}">
+    <div class="card-body">
+      <p class="card-text">{{ image.created }}</p>
+      <ul class="list-group list-group-flush">
+        {% for caption in captions %}
+        <li class="list-group-item">
+          {{caption.text}}
+          {{caption.votes}}
+          <button>Up</button>
+          <button>Down</button>
+        </li>
+        {% endfor %}
+      </ul>
+      <div>
+        <form action="img/{{image.id}}/add_caption" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="btn btn-secondary">Add Caption</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
