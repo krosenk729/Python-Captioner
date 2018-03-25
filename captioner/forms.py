@@ -36,12 +36,11 @@ class LoginForm(forms.Form):
 
 class RegisterForm(UserCreationForm):
 	email = forms.EmailField(label='Email Address', required=True)
-	first_name = forms.CharField(label='First Name')
-	last_name = forms.CharField(label='Last Name')
+	first_name = forms.CharField(label='Your Name')
 
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+		fields = ('email', 'username', 'first_name', 'password1', 'password2')
 
 	def __init__(self, *args, **kwargs):
 		super(RegisterForm, self).__init__(*args, **kwargs)
@@ -52,7 +51,6 @@ class RegisterForm(UserCreationForm):
 		user = super(RegisterForm, self).save(commit=False)
 		user.email = self.cleaned_data['email']
 		user.first_name = self.cleaned_data['first_name']
-		user.last_name = self.cleaned_data['last_name']
 		if commit:
 			user.save()
 		return user
