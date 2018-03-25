@@ -25,3 +25,9 @@ class RatingForm(forms.Form):
 class LoginForm(forms.Form):
 	username = forms.CharField(label='User Name', max_length=64)
 	password = forms.CharField(widget=forms.PasswordInput())
+
+class UserCreationForm(forms.Form):
+	username = forms.CharField(label='User Name', max_length=64)
+	email = forms.CharField(label='Email Address', widget=forms.EmailField())
+	password = forms.CharField(widget=forms.PasswordInput())
+	passwordconfirm = forms.CharField(widget=forms.PasswordInput())

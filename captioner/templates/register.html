@@ -3,11 +3,11 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 <div class="jumbotron">
-	<h1>Come On In...</h1>
-	<p>Just log in and be on your captioning way</p>
+	<h1>Sign You Up</h1>
+	<p>Yes we can! Yes we will!</p>
 </div>
 <div>
-	<form method="post" action="/login">
+	<form method="post" action=".">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button class="btn" type="submit">Log In</button>

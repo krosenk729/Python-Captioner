@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from django.conf.urls import include, url
 from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('captioner/', include('captioner.urls')),
-    path('', RedirectView.as_view(url='/'))
+    path('', include('captioner.urls')),
+    # path('', RedirectView.as_view(url='/'))
 ]
 
 

@@ -6,12 +6,18 @@ from .models import Image, Caption, Rating
 from .forms import ImageForm, CaptionForm
 
 
-def index (request):
+"""
+_______________________________________________
+Image Views
+_______________________________________________
+"""
+
+def home (request):
 	images = Image.objects.all()
 	for i in images:
 		i.captions = Caption.objects.all().filter(image=i.id)
 		# i.avg_rating = Rating.objects.all().filter(image = i.id)
-	return render(request, 'all.html', {'images': images})
+	return render(request, 'home.html', {'images': images})
 
 def add_image (request):
 	if request.method == 'POST':
@@ -20,7 +26,7 @@ def add_image (request):
 			image = form.save(commit=False)
 			image.user = request.user
 			image.save()
-		return HttpResponseRedirect('/captioner')
+		return HttpResponseRedirect(reverse('detail', args=[image.id]))
 	else:
 		form = ImageForm()
 	return render(request, 'add.html', {'form': form})
@@ -55,7 +61,7 @@ def user_images (request, username):
 		i.captions = Caption.objects.all().filter(image=i.id)
 	return render(request, 'user.html', {'user': user, 'display_type': 'images', 'images': images, 'form': form})
 
-def user_captions (request):
+def user_captions (request, username):
 	user = User.objects.get(username=username)
 	form = CaptionForm()
 	user_captions = Caption.objects.filter(user=user)
@@ -73,7 +79,7 @@ User Auth Views
 _______________________________________________
 """
 
-from .forms import LoginForm
+from .forms import LoginForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
@@ -86,7 +92,7 @@ def login_view(request):
 			if user is not None:
 				if user.is_active:
 					login(request, user)
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect(reverse('home'))
 				else:
 					print("The account has been disabled!")
 			else:
@@ -97,7 +103,14 @@ def login_view(request):
 
 def logout_view(request):
 	logout(request)
-	return HttpResponseRedirect('/')
+	return HttpResponseRedirect('/home')
 
-def registration(request):
-	pass
+def register_view(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('Login'))
+	else:
+		form = UserCreationForm()
+		return render(request, 'register.html', {'form': form})

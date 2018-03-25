@@ -1,22 +1,22 @@
-{% load staticfiles %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" media="screen">
-  <link href="{% static 'styles/style.css' %}" rel="stylesheet" media="screen">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="{% static 'styles/styles.css' %}" rel="stylesheet" media="screen">
   <title>{% block title %}Captioner{% endblock %}</title>
 </head>
 <body>
-  <nav class="navbar navbar-nav navbar-static-top text-center" role="navigation">
+  <nav class="nav" role="navigation">
     {% if user.is_authenticated %}
-      <a class="nav-item nav-link" href="{% url 'user' user.username 'images' %}">{{ user.username }}</a>
-      <a class="nav-item nav-link" href="{% url '' %}">All Images</a>
-      <a class="nav-item nav-link" href="{% url 'user' user.username 'images' %}">My Images</a>
-      <a class="nav-item nav-link" href="{% url 'user' user.username 'captions' %}">My Captions</a>
+      <a class="nav-item nav-link" href="{% url 'user_images' user.username %}">{{ user.username }}'s Images</a>
+      <a class="nav-item nav-link" href="{% url 'home' %}">All Images</a>
+      <a class="nav-item nav-link" href="{% url 'user_captions' user.username %}">My Captions</a>
+      <a class="nav-item nav-link" href="{% url 'add_image' %}">Add Image</a>
       <a class="nav-item nav-link" href="{% url 'Logout' %}">Logout</a>
     {% else %}
       <a class="nav-item nav-link" href="{% url 'Login' %}">Login</a>
+      <a class="nav-item nav-link" href="{% url 'Register' %}">Register</a>
     {% endif %}
   </nav>
   <main class="container">
@@ -27,7 +27,7 @@
     <img src="{% static 'images/brand.jpg' %}" height="50" alt="">
     Captioner
   </footer>
-  <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
   <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
