@@ -66,10 +66,10 @@ def user_captions (request, username):
 	form = CaptionForm()
 	user_captions = Caption.objects.filter(user=user)
 	images = []
-	# for i in user_captions:
-	# 	image = Image.objects.filter(id=i.image)
-	# 	image.captions = Caption.objects.filter(image=image.id)
-	# 	images.append(image)
+	for i in user_captions:
+		image = Image.objects.get(id=i.image.id)
+		image.captions = Caption.objects.all().filter(image=image.id)
+		images.append(image)
 	return render(request, 'user.html', {'user': user, 'display_type': 'captions', 'images': images, 'form': form})
 
 
@@ -105,7 +105,7 @@ def login_view(request):
 
 def logout_view(request):
 	logout(request)
-	return HttpResponseRedirect('/home')
+	return HttpResponseRedirect(reverse('home'))
 
 def register_view(request):
 	if request.method == 'POST':

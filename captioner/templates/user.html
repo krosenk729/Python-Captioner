@@ -5,9 +5,13 @@
 <div class="d-flex flex-wrap justify-content-around">
   {% for image in images %}
   <div class="card" style="width: 18rem;">
+    {% if user.is_authenticated %}
     <a href="/img/{{ image.id }}">
+
     <img class="card-img-top" src="{{ image.url }}" alt="{{ image.name }}">
+
     </a>
+    {% endif %}
     <div class="card-body">
       <p class="card-text">{{ image.created }}</p>
       <ul class="list-group list-group-flush">
@@ -20,6 +24,7 @@
           <button>Down</button>
           {% endif %}
         </li>
+        {% endfor %}
         <div>
           <form action="img/{{image.id}}/add_caption" method="post">
             {% csrf_token %}
@@ -27,7 +32,6 @@
             <button type="submit" class="btn btn-secondary">Add Caption</button>
           </form>
         </div>
-        {% endfor %}
       </ul>
     </div>
   </div>
