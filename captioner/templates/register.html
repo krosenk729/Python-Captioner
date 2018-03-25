@@ -7,7 +7,7 @@
 	<p>Yes we can! Yes we will!</p>
 </div>
 <div>
-	<form method="post" action=".">
+	<form method="post" action="." class="register">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button class="btn" type="submit">Log In</button>

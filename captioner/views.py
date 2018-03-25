@@ -51,7 +51,7 @@ def add_caption (request, image_id):
 			caption.image = image
 			caption.user = request.user
 			caption.save()
-	return HttpResponseRedirect('/captioner/img/'+ str(image.id))
+	return HttpResponseRedirect('/img/'+ str(image.id))
 
 def user_images (request, username):
 	user = User.objects.get(username=username)
@@ -66,10 +66,10 @@ def user_captions (request, username):
 	form = CaptionForm()
 	user_captions = Caption.objects.filter(user=user)
 	images = []
-	for i in user_captions:
-		image = Image.objects.filter(id=i.image)
-		image.captions = Caption.objects.filter(image=image.id)
-		images.append(image)
+	# for i in user_captions:
+	# 	image = Image.objects.filter(id=i.image)
+	# 	image.captions = Caption.objects.filter(image=image.id)
+	# 	images.append(image)
 	return render(request, 'user.html', {'user': user, 'display_type': 'captions', 'images': images, 'form': form})
 
 

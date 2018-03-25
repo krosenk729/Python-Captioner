@@ -18,7 +18,7 @@
         {% endfor %}
       </ul>
       <div>
-        <form action="img/{{image.id}}/add_caption" method="post">
+        <form action="/img/{{image.id}}/add_caption" method="post">
           {% csrf_token %}
           {{ form }}
           <button type="submit" class="btn btn-secondary">Add Caption</button>

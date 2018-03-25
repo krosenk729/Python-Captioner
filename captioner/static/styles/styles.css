@@ -1,3 +1,15 @@
-*{
-	color: #7f7f7f;
-}
+* {
+  color: #7f7f7f; }
+
+form.register {
+  display: flex;
+  flex-wrap: wrap; }
+  form.register > p {
+    flex-basis: 45%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em; }
+  form.register > p:first-child(1) {
+    flex-basis: 100%; }
+
+/*# sourceMappingURL=styles.css.map */
