@@ -79,7 +79,7 @@ User Auth Views
 _______________________________________________
 """
 
-from .forms import LoginForm, UserCreationForm
+from .forms import LoginForm, RegisterForm
 from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
@@ -95,8 +95,10 @@ def login_view(request):
 					return HttpResponseRedirect(reverse('home'))
 				else:
 					print("The account has been disabled!")
+					return HttpResponseRedirect(reverse('Login'))
 			else:
 				print("The username and password were incorrect.")
+				return HttpResponseRedirect(reverse('Login'))
 	else: 
 		form = LoginForm()
 		return render(request, 'login.html', {'form': form})
@@ -107,10 +109,10 @@ def logout_view(request):
 
 def register_view(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+		form = RegisterForm(request.POST)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('Login'))
 	else:
-		form = UserCreationForm()
+		form = RegisterForm()
 		return render(request, 'register.html', {'form': form})
