@@ -1,4 +1,11 @@
 $(document).ready(function(){
+	/*
+	 * Lazy Load Image
+	 */
+
+	/*
+	 * Update DB When Vote Clicked 
+	 */
 
 	$('.up-vote').on('click', (event)=>{
 		console.log(event);
@@ -15,6 +22,10 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	/*
+	 * Update DB When Vote Clicked 
+	 */
 
 	$('.down-vote').on('click', (event)=>{
 		console.log(event);
@@ -39,7 +50,6 @@ $(document).ready(function(){
 	 function upVoteUpdate(counter, newval){
 	 	$(counter).text(parseFloat(newval));
 	 }
-
 
 	/*
 	 * CSRF Token Using jQuery 
