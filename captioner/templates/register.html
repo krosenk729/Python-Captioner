@@ -7,10 +7,10 @@
 	<p>Yes we can! Yes we will!</p>
 </div>
 <div>
-	<form method="post" action="." class="register">
+	<form method="post" action="/register" class="register">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button class="btn" type="submit">Log In</button>
+		<button class="btn" type="submit">Register</button>
 	</form>
 </div>
 {% endblock %}

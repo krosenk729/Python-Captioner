@@ -1,0 +1,31 @@
+<div class="card">
+  {% if user.is_authenticated %}
+  <a href="/img/{{ image.id }}">
+    {% endif %}
+    <img class="card-img-top" src="{{ image.url }}" alt="{{ image.name }}">
+    {% if user.is_authenticated %}
+  </a>
+  <div class="card-body">
+    <p class="card-text">{{ image.created }} | {{ image.user.username }}</p>
+    <ul class="list-group list-group-flush">
+      {% for caption in image.captions %}
+      <li class="list-group-item">
+        {{caption.text}}
+        {{caption.votes}}
+        {% if caption.user != user %}
+        <button class="btn">Up</button>
+        <button class="btn">Down</button>
+        {% endif %}
+      </li>
+      {% endfor %}
+      <li>
+        <form action="/img/{{image.id}}/add_caption" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="btn btn-secondary">Add Caption</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+</div>

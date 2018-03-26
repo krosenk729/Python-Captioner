@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Captioner | All Images{% endblock %}
+{% block content %}
+<div class="grid-wrap">
+	<div class="d-flex flex-wrap justify-content-around">
+		{% for image in images %}
+		{% include "card.html" with image=image %}
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

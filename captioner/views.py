@@ -14,10 +14,11 @@ _______________________________________________
 
 def home (request):
 	images = Image.objects.all()
+	form = CaptionForm()
 	for i in images:
 		i.captions = Caption.objects.all().filter(image=i.id)
 		# i.avg_rating = Rating.objects.all().filter(image = i.id)
-	return render(request, 'home.html', {'images': images})
+	return render(request, 'index.html', {'images': images, 'form': form})
 
 def add_image (request):
 	if request.method == 'POST':
@@ -59,7 +60,7 @@ def user_images (request, username):
 	images = Image.objects.filter(user=user)
 	for i in images:
 		i.captions = Caption.objects.all().filter(image=i.id)
-	return render(request, 'user.html', {'user': user, 'display_type': 'images', 'images': images, 'form': form})
+	return render(request, 'index.html', {'display_type': 'images', 'images': images, 'form': form})
 
 def user_captions (request, username):
 	user = User.objects.get(username=username)
@@ -70,7 +71,7 @@ def user_captions (request, username):
 		image = Image.objects.get(id=i.image.id)
 		image.captions = Caption.objects.all().filter(image=image.id)
 		images.append(image)
-	return render(request, 'user.html', {'user': user, 'display_type': 'captions', 'images': images, 'form': form})
+	return render(request, 'index.html', {'display_type': 'captions', 'images': images, 'form': form})
 
 
 """

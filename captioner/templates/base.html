@@ -8,9 +8,9 @@
 </head>
 <body>
   <nav class="nav" role="navigation">
+      <a class="nav-item nav-link" href="{% url 'home' %}">Captioner Home</a>
     {% if user.is_authenticated %}
       <a class="nav-item nav-link" href="{% url 'user_images' user.username %}">{{ user.username }}'s Images</a>
-      <a class="nav-item nav-link" href="{% url 'home' %}">All Images</a>
       <a class="nav-item nav-link" href="{% url 'user_captions' user.username %}">My Captions</a>
       <a class="nav-item nav-link" href="{% url 'add_image' %}">Add Image</a>
       <a class="nav-item nav-link" href="{% url 'Logout' %}">Logout</a>
