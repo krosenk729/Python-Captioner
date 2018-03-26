@@ -25,7 +25,6 @@ def home (request):
 			for v in votes:
 				c.u_votes.append(v)
 				c.u_vote_avg += v.value / votes_len
-
 		# i.avg_rating = Rating.objects.all().filter(image = i.id)
 	return render(request, 'index.html', {'images': images, 'form': form})
 
@@ -66,7 +65,13 @@ def user_vote (request):
 	vote, created = Vote.objects.get_or_create(caption=caption, user=user)
 	vote.value = value
 	vote.save()
-	return HttpResponse('cool');
+
+	new_vote_avg = 0
+	votes = Vote.objects.all().filter(caption=caption)
+	votes_len = len(votes)
+	for v in votes:
+		new_vote_avg += v.value / votes_len
+	return HttpResponse(new_vote_avg);
 
 """
 _______________________________________________

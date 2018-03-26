@@ -1,9 +1,8 @@
 $(document).ready(function(){
 
 	$('.up-vote').on('click', (event)=>{
-		// data = +1 or -1 ; user  who clicked it; image that was clicked
 		console.log(event);
-		let vote_val = 1,
+		let vote_val = event.currentTarget.classList.value.match(/voted/i) ? 0 : 1,
 			user_id = event.currentTarget.attributes["data-uid"].value,
 			caption_id = event.currentTarget.attributes["data-capt"].value;
 		$.ajax({
@@ -12,14 +11,35 @@ $(document).ready(function(){
 			data: {vote_val, user_id, caption_id},
 			success: function(data){
 				console.log(data);
+				upVoteUpdate(event.currentTarget.nextElementSibling, data);
 			}
 		});
 	});
 
 	$('.down-vote').on('click', (event)=>{
-		// data = +1 or -1 ; user  who clicked it; image that was clicked
 		console.log(event);
+		let vote_val = event.currentTarget.classList.value.match(/voted/i) ? 0 : -1,
+			user_id = event.currentTarget.attributes["data-uid"].value,
+			caption_id = event.currentTarget.attributes["data-capt"].value;
+		$.ajax({
+			url: '/user_vote/',
+			type: 'POST',
+			data: {vote_val, user_id, caption_id},
+			success: function(data){
+				console.log(data);
+				upVoteUpdate(event.currentTarget.previousElementSibling, data);
+			}
+		});
 	});
+
+	/*
+	 * Update Vote Avg Shown 
+	 */
+
+	 function upVoteUpdate(counter, newval){
+	 	$(counter).text(parseFloat(newval));
+	 }
+
 
 	/*
 	 * CSRF Token Using jQuery 
