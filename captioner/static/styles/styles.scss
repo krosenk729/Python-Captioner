@@ -7,6 +7,28 @@ textarea{
 	resize: none;
 }
 
+i.fas{
+	color: white;
+}
+
+.caption-item{
+	display: flex;
+	justify-content: space-between;
+}
+
+.grid-wrap{
+	.card{
+		max-width: 550px;
+	}
+
+	.caption-vote{
+		min-width: 125px;
+		padding-left: .22em;
+		margin-left: .22em;
+		font-size: 1.7em;
+	}
+}
+
 form.register{
 
 	& > p{

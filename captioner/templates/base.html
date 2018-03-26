@@ -2,21 +2,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="{% static 'styles/styles.css' %}" rel="stylesheet" media="screen">
   <title>{% block title %}Captioner{% endblock %}</title>
 </head>
 <body>
   <nav class="nav" role="navigation">
-      <a class="nav-item nav-link" href="{% url 'home' %}">Captioner Home</a>
+    <a class="nav-item nav-link" href="{% url 'home' %}">Captioner Home</a>
     {% if user.is_authenticated %}
-      <a class="nav-item nav-link" href="{% url 'user_images' user.username %}">{{ user.username }}'s Images</a>
-      <a class="nav-item nav-link" href="{% url 'user_captions' user.username %}">My Captions</a>
-      <a class="nav-item nav-link" href="{% url 'add_image' %}">Add Image</a>
-      <a class="nav-item nav-link" href="{% url 'Logout' %}">Logout</a>
+    <a class="nav-item nav-link" href="{% url 'user_images' user.username %}">{{ user.username }}'s Images</a>
+    <a class="nav-item nav-link" href="{% url 'user_captions' user.username %}">My Captions</a>
+    <a class="nav-item nav-link" href="{% url 'add_image' %}">Add Image</a>
+    <a class="nav-item nav-link" href="{% url 'Logout' %}">Logout</a>
     {% else %}
-      <a class="nav-item nav-link" href="{% url 'Login' %}">Login</a>
-      <a class="nav-item nav-link" href="{% url 'Register' %}">Register</a>
+    <a class="nav-item nav-link" href="{% url 'Login' %}">Login</a>
+    <a class="nav-item nav-link" href="{% url 'Register' %}">Register</a>
     {% endif %}
   </nav>
   <main class="container">

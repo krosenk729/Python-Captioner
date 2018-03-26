@@ -13,6 +13,7 @@ class CaptionForm(forms.ModelForm):
 	class Meta:
 		model = Caption
 		fields = ['text']
+		widgets = {'text': forms.Textarea(attrs={'rows':2})}
 
 # class ImageForm(forms.Form):
 # 	name = forms.CharField(label='Name', max_length=100)

@@ -9,16 +9,25 @@
     <p class="card-text">{{ image.created }} | {{ image.user.username }}</p>
     <ul class="list-group list-group-flush">
       {% for caption in image.captions %}
-      <li class="list-group-item">
+      <li class="list-group-item caption-item">
         {{caption.text}}
-        {{caption.votes}}
+
+        {% if user.is_authenticated %}
+        <div class="caption-vote">
         {% if caption.user != user %}
-        <button class="btn">Up</button>
-        <button class="btn">Down</button>
+        <button class="btn badge badge-secondary"><i class="fas fa-chevron-up"></i></button>
+        {% endif %}
+        <div class="badge badge-secondary">
+        {{caption.votes}}
+        </div>
+        {% if caption.user != user %}
+        <button class="btn badge badge-secondary"><i class="fas fa-chevron-down"></i></button>
+        {% endif %}
+        </div>
         {% endif %}
       </li>
       {% endfor %}
-      <li>
+      <li class="list-group-item">
         <form action="/img/{{image.id}}/add_caption" method="post">
           {% csrf_token %}
           {{ form }}
