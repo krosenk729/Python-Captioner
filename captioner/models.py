@@ -43,6 +43,8 @@ _______________________________________________
 class Vote(models.Model):
 	caption = models.ForeignKey(Caption, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	value = models.SmallIntegerField()
+	value = models.SmallIntegerField(default=0)
 	def __str__(self):
-		return self.value
+		return "Vote Val " + str(self.value) + " by " + self.user.username
+	class Meta:
+		unique_together = ("caption", "user")

@@ -60,10 +60,12 @@ def user_captions (request, username):
 	return render(request, 'index.html', {'display_type': 'captions', 'images': images, 'form': form})
 
 def user_vote (request):
-	caption_id = request.POST.get('caption_id', None)
-	user_id = request.POST.get('user_id', None)
-	vote_val = request.POST.get('vote_val', None)
-	print(caption_id, user_id, vote_val)
+	caption = Caption.objects.get( id = request.POST.get('caption_id', None) )
+	user = User.objects.get( id = request.POST.get('user_id', None) )
+	value = request.POST.get('vote_val', None)
+	vote, created = Vote.objects.get_or_create(caption=caption, user=user)
+	vote.value = value
+	vote.save()
 	return HttpResponse('cool');
 
 """

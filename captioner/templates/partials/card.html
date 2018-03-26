@@ -2,7 +2,7 @@
   {% include "partials/image.html" with image=image %}
   {% if user.is_authenticated %}
   <div class="card-body">
-    <p class="card-text">{{ image.created }} | {{ image.user.username }}</p>
+    <p class="card-text">{{ image.created|date:'d M Y' }} | {{ image.user.username }}</p>
     <ul class="list-group list-group-flush">
       {% for caption in image.captions %}
         {% include "partials/caption.html" with caption=caption %}
