@@ -8,6 +8,7 @@ urlpatterns = [
 	path('img/<int:image_id>/add_caption', views.add_caption, name='add_caption'),
 	path('user/<slug:username>/images', views.user_images, name="user_images"),
 	path('user/<slug:username>/captions', views.user_captions, name="user_captions"),
+	path('user_vote/', views.user_vote, name='user_vote'),
 	path('login', views.login_view, name = 'Login'),
 	path('logout', views.logout_view, name = 'Logout'),
 	path('register', views.register_view, name = 'Register'),

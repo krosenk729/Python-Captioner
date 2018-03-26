@@ -60,11 +60,11 @@ def user_captions (request, username):
 	return render(request, 'index.html', {'display_type': 'captions', 'images': images, 'form': form})
 
 def user_vote (request):
-	image = 1
-	user = 1
-	vote = 1
-
-
+	caption_id = request.POST.get('caption_id', None)
+	user_id = request.POST.get('user_id', None)
+	vote_val = request.POST.get('vote_val', None)
+	print(caption_id, user_id, vote_val)
+	return HttpResponse('cool');
 
 """
 _______________________________________________
