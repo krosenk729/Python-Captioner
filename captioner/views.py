@@ -15,36 +15,23 @@ _______________________________________________
 def home (request):
 	images = Image.objects.all()
 	form = CaptionForm()
-	for i in images:
-		i.captions = Caption.objects.all().filter(image=i.id)
-		for c in i.captions:
-			c.u_votes = []
-			c.u_vote_avg = 0
-			votes = Vote.objects.all().filter(caption=c.id)
-			votes_len = len(votes)
-			for v in votes:
-				c.u_votes.append(v)
-				c.u_vote_avg += v.value / votes_len
-		# i.avg_rating = Rating.objects.all().filter(image = i.id)
+	images = build_images_out(images)
 	return render(request, 'index.html', {'images': images, 'form': form})
 
 def detail (request, image_id):
 	try:
-		image = Image.objects.get(id=image_id)
+		images = Image.objects.get(id=image_id)
+		images = build_images_out([images])
 	except Image.DoesNotExist:
 		raise Http404('Nopers - that link does not work')
 	else:
-		captions = Caption.objects.all().filter(image=image_id)
 		form = CaptionForm()
-		# i.avg_rating = Rating.objects.all().filter(image = i.id)
-	return render(request, 'detail.html', {'image': image, 'captions': captions, 'form': form})
+	return render(request, 'detail.html', {'image': images[0], 'form': form})
 
 def user_images (request, username):
 	user = User.objects.get(username=username)
 	form = CaptionForm()
-	images = Image.objects.filter(user=user)
-	for i in images:
-		i.captions = Caption.objects.all().filter(image=i.id)
+	images = build_images_out(Image.objects.filter(user=user))
 	return render(request, 'index.html', {'display_type': 'images', 'images': images, 'form': form})
 
 def user_captions (request, username):
@@ -54,8 +41,8 @@ def user_captions (request, username):
 	images = []
 	for i in user_captions:
 		image = Image.objects.get(id=i.image.id)
-		image.captions = Caption.objects.all().filter(image=image.id)
 		images.append(image)
+	images = build_images_out(images)
 	return render(request, 'index.html', {'display_type': 'captions', 'images': images, 'form': form})
 
 def user_vote (request):
@@ -72,6 +59,25 @@ def user_vote (request):
 	for v in votes:
 		new_vote_avg += v.value / votes_len
 	return HttpResponse(new_vote_avg);
+
+"""
+_______________________________________________
+Utility Functions
+_______________________________________________
+"""
+def build_images_out (image_list):
+	for i in image_list:
+		i.captions = Caption.objects.all().filter(image=i.id)
+		for c in i.captions:
+			c.u_votes = []
+			c.u_vote_avg = 0
+			votes = Vote.objects.all().filter(caption=c.id)
+			votes_len = len(votes)
+			for v in votes:
+				c.u_votes.append(v)
+				c.u_vote_avg += v.value / votes_len
+		# i.avg_rating = Rating.objects.all().filter(image = i.id)
+	return image_list
 
 """
 _______________________________________________

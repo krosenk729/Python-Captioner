@@ -2,6 +2,9 @@ $(document).ready(function(){
 	/*
 	 * Lazy Load Image
 	 */
+	 $('.lazy-load').each(function(){
+	 	$(this).attr('src', $(this).attr('data-src')).toggleClass('lazy-load');
+	 });
 
 	/*
 	 * Update DB When Vote Clicked 
@@ -9,7 +12,8 @@ $(document).ready(function(){
 
 	$('.up-vote').on('click', (event)=>{
 		console.log(event);
-		let vote_val = event.currentTarget.classList.value.match(/voted/i) ? 0 : 1,
+		let is_zero = event.currentTarget.classList.value.match(/voted/i) ? true: false,
+			vote_val = is_zero ? 0 : 1,
 			user_id = event.currentTarget.attributes["data-uid"].value,
 			caption_id = event.currentTarget.attributes["data-capt"].value;
 		$.ajax({
@@ -21,6 +25,7 @@ $(document).ready(function(){
 				upVoteUpdate(event.currentTarget.nextElementSibling, data);
 			}
 		});
+		$(event.currentTarget).toggleClass('voted');
 	});
 
 	/*
@@ -41,6 +46,7 @@ $(document).ready(function(){
 				upVoteUpdate(event.currentTarget.previousElementSibling, data);
 			}
 		});
+		$(event.currentTarget).toggleClass('voted');
 	});
 
 	/*

@@ -9,7 +9,7 @@
     </button>
     {% endif %}
     <div class="badge badge-secondary">
-      {{caption.u_vote_avg|floatformat:"0"}}
+      {{caption.u_vote_avg|floatformat:0}}
     </div>
     {% if caption.user != user %}
     <button class="btn badge badge-secondary down-vote {% if False %} voted {% endif %}" data-uid="{{ user.id }}" data-capt="{{ caption.id }}">
