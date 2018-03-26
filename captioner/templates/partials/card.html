@@ -1,0 +1,20 @@
+<div class="card">
+  {% include "partials/image.html" with image=image %}
+  {% if user.is_authenticated %}
+  <div class="card-body">
+    <p class="card-text">{{ image.created }} | {{ image.user.username }}</p>
+    <ul class="list-group list-group-flush">
+      {% for caption in image.captions %}
+        {% include "partials/caption.html" with caption=caption %}
+      {% endfor %}
+      <li class="list-group-item">
+        <form action="/img/{{image.id}}/add_caption" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="btn btn-secondary">Add Caption</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+</div>

@@ -1,0 +1,21 @@
+<li class="list-group-item caption-item">
+  {{caption.text}}
+
+  {% if user.is_authenticated %}
+  <div class="caption-vote">
+    {% if caption.user != user %}
+    <button class="btn badge badge-secondary up-vote {% if True %} voted {% endif %}" data-uid="{{ user.id }}" data-capt="{{ caption.id }}">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    {% endif %}
+    <div class="badge badge-secondary">
+      {{caption.u_vote_avg}}
+    </div>
+    {% if caption.user != user %}
+    <button class="btn badge badge-secondary down-vote {% if False %} voted {% endif %}" data-uid="{{ user.id }}" data-capt="{{ caption.id }}">
+    <i class="fas fa-chevron-down"></i>
+    </button>
+    {% endif %}
+  </div>
+  {% endif %}
+</li>

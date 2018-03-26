@@ -22,9 +22,27 @@ class Caption(models.Model):
 	def __str__(self):
 		return self.text
 
+"""
+_______________________________________________
+Rate the Boring-ness of an Image
+_______________________________________________
+"""
+
 class Rating(models.Model):
 	image = models.ForeignKey(Image, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	value = models.PositiveSmallIntegerField(help_text="How non-glam is this photo? 10 = very normal, 0 = glamourous")
+	value = models.SmallIntegerField(help_text="How non-glam is this photo? 10 = very normal, 0 = glamourous")
+	def __str__(self):
+		return self.value
+
+"""
+_______________________________________________
+Vote Up or Down for a Caption
+_______________________________________________
+"""
+class Vote(models.Model):
+	caption = models.ForeignKey(Caption, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	value = models.SmallIntegerField()
 	def __str__(self):
 		return self.value
