@@ -2,9 +2,12 @@
 	color: #7f7f7f;
 }
 
+textarea{
+	width: 100%;
+	resize: none;
+}
+
 form.register{
-	display: flex;
-	flex-wrap: wrap;
 
 	& > p{
 		flex-basis: 45%;

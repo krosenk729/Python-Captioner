@@ -28,12 +28,6 @@ class LoginForm(forms.Form):
 	username = forms.CharField(label='User Name', max_length=64)
 	password = forms.CharField(widget=forms.PasswordInput())
 
-# class UserCreationForm(forms.Form):
-# 	username = forms.CharField(label='User Name', max_length=64)
-# 	email = forms.CharField(label='Email Address', widget=forms.EmailField())
-# 	password = forms.CharField(widget=forms.PasswordInput())
-# 	passwordconfirm = forms.CharField(widget=forms.PasswordInput())
-
 class RegisterForm(UserCreationForm):
 	email = forms.EmailField(label='Email Address', required=True)
 	first_name = forms.CharField(label='Your Name')
