@@ -1,11 +1,5 @@
 ## Django App
 
-##### To Dos
-1. Button active if user has already voted for that caption
-1. Upload image instead of leave image link
-1. Lazy load images
-
-
 For windows, replace any `python3` reference with `py -3`
 
 

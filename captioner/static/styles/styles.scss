@@ -1,5 +1,16 @@
+$c-grey: #7f7f7f;
+$c-ltblue: #c2ebef;
+$c-watermelon: #f04242;
+$c-ltgrey: #EFEFEF;
+$c-dkgrey: #A9A9A9;
+
+
+///////////////////////////////////////////////////////
+// Body & Layout
+///////////////////////////////////////////////////////
+
 *{
-	color: #7f7f7f;
+	color: $c-dkgrey;
 }
 
 textarea{
@@ -7,31 +18,7 @@ textarea{
 	resize: none;
 }
 
-i.fas{
-	color: white;
-}
-
-.caption-item{
-	display: flex;
-	justify-content: space-between;
-}
-
-.grid-wrap{
-	.card{
-		max-width: 550px;
-	}
-
-	.caption-vote{
-		min-width: 135px;
-		padding-left: .22em;
-		margin-left: .22em;
-		font-size: 1.7em;
-		text-align: center;
-	}
-}
-
 form.register{
-
 	& > p{
 		flex-basis: 45%;
 		display: flex;
@@ -41,5 +28,41 @@ form.register{
 
 	& > p:first-child(1){
 		flex-basis: 100%;
+	}
+}
+
+.grid-wrap{
+	.card{
+		max-width: 550px;
+	}
+}
+
+
+///////////////////////////////////////////////////////
+// Vote Buttons
+///////////////////////////////////////////////////////
+
+.caption-item{
+	display: flex;
+	justify-content: space-between;
+}
+.caption-vote{
+	min-width: 135px;
+	padding-left: .22em;
+	margin-left: .22em;
+	font-size: 1.7em;
+	text-align: center;
+
+	.badge{
+		margin: 0;
+		background-color: $c-ltgrey;
+		&.voted{
+			background-color: $c-ltblue;
+			color: $c-ltgrey;
+
+			i.fas{
+				color: $c-ltgrey;
+			}
+		}
 	}
 }

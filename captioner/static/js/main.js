@@ -6,53 +6,45 @@ $(document).ready(function(){
 	 	$(this).attr('src', $(this).attr('data-src')).toggleClass('lazy-load');
 	 });
 
+
 	/*
-	 * Update DB When Vote Clicked 
+	 * Listen for Votes 
+	 */
+	$('.up-vote').on('click', function(event){
+		handleVote(event, 1);
+	});
+	$('.down-vote').on('click', function(event){
+		handleVote(event, -1);
+	});
+
+
+	/*
+	 * Post Vote to Endpoint 
 	 */
 
-	$('.up-vote').on('click', (event)=>{
-		console.log(event);
+	function handleVote(event, which){
 		let is_zero = event.currentTarget.classList.value.match(/voted/i) ? true: false,
-			vote_val = is_zero ? 0 : 1,
+			vote_val = is_zero ? 0 : which,
 			user_id = event.currentTarget.attributes["data-uid"].value,
-			caption_id = event.currentTarget.attributes["data-capt"].value;
+			caption_id = event.currentTarget.attributes["data-capt"].value,
+			upvote_ref = which > 0 ? event.currentTarget.nextElementSibling : event.currentTarget.previousElementSibling;
 		$.ajax({
 			url: '/user_vote/',
 			type: 'POST',
 			data: {vote_val, user_id, caption_id},
 			success: function(data){
 				console.log(data);
-				upVoteUpdate(event.currentTarget.nextElementSibling, data);
+				upVoteUpdate(upvote_ref, data);
 			}
 		});
+		$(event.currentTarget).siblings().removeClass('voted');
 		$(event.currentTarget).toggleClass('voted');
-	});
+	}
 
-	/*
-	 * Update DB When Vote Clicked 
-	 */
-
-	$('.down-vote').on('click', (event)=>{
-		console.log(event);
-		let vote_val = event.currentTarget.classList.value.match(/voted/i) ? 0 : -1,
-			user_id = event.currentTarget.attributes["data-uid"].value,
-			caption_id = event.currentTarget.attributes["data-capt"].value;
-		$.ajax({
-			url: '/user_vote/',
-			type: 'POST',
-			data: {vote_val, user_id, caption_id},
-			success: function(data){
-				console.log(data);
-				upVoteUpdate(event.currentTarget.previousElementSibling, data);
-			}
-		});
-		$(event.currentTarget).toggleClass('voted');
-	});
 
 	/*
 	 * Update Vote Avg Shown 
 	 */
-
 	 function upVoteUpdate(counter, newval){
 	 	$(counter).text(parseFloat(newval));
 	 }

@@ -1,24 +1,9 @@
 * {
-  color: #7f7f7f; }
+  color: #A9A9A9; }
 
 textarea {
   width: 100%;
   resize: none; }
-
-i.fas {
-  color: white; }
-
-.caption-item {
-  display: flex;
-  justify-content: space-between; }
-
-.grid-wrap .card {
-  max-width: 550px; }
-.grid-wrap .caption-vote {
-  min-width: 125px;
-  padding-left: .22em;
-  margin-left: .22em;
-  font-size: 1.7em; }
 
 form.register > p {
   flex-basis: 45%;
@@ -27,5 +12,27 @@ form.register > p {
   padding: 1em; }
 form.register > p:first-child(1) {
   flex-basis: 100%; }
+
+.grid-wrap .card {
+  max-width: 550px; }
+
+.caption-item {
+  display: flex;
+  justify-content: space-between; }
+
+.caption-vote {
+  min-width: 135px;
+  padding-left: .22em;
+  margin-left: .22em;
+  font-size: 1.7em;
+  text-align: center; }
+  .caption-vote .badge {
+    margin: 0;
+    background-color: #EFEFEF; }
+    .caption-vote .badge.voted {
+      background-color: #c2ebef;
+      color: #EFEFEF; }
+      .caption-vote .badge.voted i.fas {
+        color: #EFEFEF; }
 
 /*# sourceMappingURL=styles.css.map */

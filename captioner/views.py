@@ -45,21 +45,6 @@ def user_captions (request, username):
 	images = build_images_out(images)
 	return render(request, 'index.html', {'display_type': 'captions', 'images': images, 'form': form})
 
-def user_vote (request):
-	caption = Caption.objects.get( id = request.POST.get('caption_id', None) )
-	user = User.objects.get( id = request.POST.get('user_id', None) )
-	value = request.POST.get('vote_val', None)
-	vote, created = Vote.objects.get_or_create(caption=caption, user=user)
-	vote.value = value
-	vote.save()
-
-	new_vote_avg = 0
-	votes = Vote.objects.all().filter(caption=caption)
-	votes_len = len(votes)
-	for v in votes:
-		new_vote_avg += v.value / votes_len
-	return HttpResponse(new_vote_avg);
-
 """
 _______________________________________________
 Utility Functions
@@ -70,12 +55,11 @@ def build_images_out (image_list):
 		i.captions = Caption.objects.all().filter(image=i.id)
 		for c in i.captions:
 			c.u_votes = []
-			c.u_vote_avg = 0
+			c.votes = 0
 			votes = Vote.objects.all().filter(caption=c.id)
-			votes_len = len(votes)
 			for v in votes:
 				c.u_votes.append(v)
-				c.u_vote_avg += v.value / votes_len
+				c.votes += v.value
 		# i.avg_rating = Rating.objects.all().filter(image = i.id)
 	return image_list
 
@@ -108,6 +92,20 @@ def add_caption (request, image_id):
 			caption.save()
 	return HttpResponseRedirect('/img/'+ str(image.id))
 
+
+def user_vote (request):
+	caption = Caption.objects.get( id = request.POST.get('caption_id', None) )
+	user = User.objects.get( id = request.POST.get('user_id', None) )
+	value = request.POST.get('vote_val', None)
+	vote, created = Vote.objects.get_or_create(caption=caption, user=user)
+	vote.value = value
+	vote.save()
+
+	new_vote = 0
+	votes = Vote.objects.all().filter(caption=caption)
+	for v in votes:
+		new_vote += v.value
+	return HttpResponse(new_vote);
 
 """
 _______________________________________________
